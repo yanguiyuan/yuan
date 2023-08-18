@@ -3,11 +3,11 @@ package gorm
 import (
 	"fmt"
 	"github.com/spf13/viper"
+	"github.com/yanguiyuan/yuan/pkg/config"
 	"gorm.io/driver/mysql"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gen"
 	"gorm.io/gorm"
-	"yuan/pkg/config"
 )
 
 // 可选参数 gorm-gen.dal,gorm-gen.model 指定dal和model的生成路径

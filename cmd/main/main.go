@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
+	"github.com/yanguiyuan/yuan/pkg/core"
 	"time"
-	"yuan/pkg/core"
 )
 
 type Human struct {
