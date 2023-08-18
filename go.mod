@@ -1,4 +1,4 @@
-module yuan
+module github.com/yanguiyuan/yuan
 
 go 1.20
 
