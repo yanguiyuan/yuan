@@ -50,3 +50,12 @@ func (s *Set[T]) Map(f func(v T) T) *Set[T] {
 	}
 	return set
 }
+func (s *Set[T]) Find(f func(v T) bool) []T {
+	var list []T
+	for k, _ := range s.data {
+		if f(k) {
+			list = append(list, k)
+		}
+	}
+	return list
+}
