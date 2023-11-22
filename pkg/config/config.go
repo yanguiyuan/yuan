@@ -24,7 +24,7 @@ func GetConfig(path string) *viper.Viper {
 	conf := viper.New()
 	conf.SetConfigFile(path)
 	conf.SetDefault("gorm-gen.dal", "./internal/dal")
-	conf.SetDefault("gorm-gen.model", "./internal/model")
+	conf.SetDefault("gorm-gen.model", "./model")
 	err := conf.ReadInConfig()
 	if err != nil {
 		panic(err)
