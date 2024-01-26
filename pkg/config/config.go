@@ -7,6 +7,17 @@ import (
 	"os"
 )
 
+var conf *viper.Viper
+
+func init() {
+	conf = NewConfig()
+}
+func GetString(key string) string {
+	return conf.GetString(key)
+}
+func GetStringSlice(key string) []string {
+	return conf.GetStringSlice(key)
+}
 func NewConfig() *viper.Viper {
 	envConf := os.Getenv("APP_CONF")
 	if envConf == "" {

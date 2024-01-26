@@ -19,6 +19,8 @@ func One() uint64 {
 }
 
 func Base62() string {
+	// 生成一个唯一的ID
 	id := One()
+	// 将ID转换为Base62编码的字符串
 	return convert.Int64ToBase62(int64(id))
 }

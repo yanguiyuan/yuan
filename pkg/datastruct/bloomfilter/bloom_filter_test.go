@@ -6,7 +6,7 @@ import (
 )
 
 func TestBloomFilter(t *testing.T) {
-	bf := NewBloomFilter(1000, 3)
+	bf := New(1000, 3)
 
 	data1 := []byte("apple")
 	data2 := []byte("banana")

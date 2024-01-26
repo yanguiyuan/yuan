@@ -22,7 +22,7 @@ func (h *fnvHasher) hash(data []byte) uint32 {
 	return hash.Sum32()
 }
 
-func NewBloomFilter(size int, numHashers int) *BloomFilter {
+func New(size int, numHashers int) *BloomFilter {
 	return &BloomFilter{
 		bitSet:  make([]bool, size),
 		hashers: generateHashers(numHashers),

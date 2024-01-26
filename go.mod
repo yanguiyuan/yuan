@@ -4,6 +4,7 @@ go 1.20
 
 require (
 	fyne.io/fyne/v2 v2.4.1
+	github.com/fogleman/gg v1.3.0
 	github.com/go-gl/gl v0.0.0-20211210172815-726fda9656d6
 	github.com/go-gl/glfw/v3.3/glfw v0.0.0-20221017161538-93cebf72946b
 	github.com/go-gl/mathgl v1.1.0
@@ -30,6 +31,7 @@ require (
 	github.com/go-text/render v0.0.0-20230619120952-35bccb6164b8 // indirect
 	github.com/go-text/typesetting v0.0.0-20230803102845-24e03d8b5372 // indirect
 	github.com/godbus/dbus/v5 v5.1.0 // indirect
+	github.com/golang/freetype v0.0.0-20170609003504-e2365dfdc4a0 // indirect
 	github.com/gopherjs/gopherjs v1.17.2 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect

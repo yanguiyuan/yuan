@@ -10,7 +10,7 @@ type Pair[A any, B any] struct {
 	b B
 }
 
-func NewVec[T any]() *Vec[T] {
+func New[T any]() *Vec[T] {
 	return &Vec[T]{
 		data: make([]T, 0, 3),
 	}
