@@ -10,7 +10,11 @@ import (
 var config *viper.Viper
 
 func init() {
-	config = NewConfig()
+	envConf := os.Getenv("APP_CONF")
+	if envConf == "" {
+		envConf = "config/local.yml"
+	}
+	config = GetConfig(envConf)
 }
 func GetString(key string) string {
 	return config.GetString(key)
