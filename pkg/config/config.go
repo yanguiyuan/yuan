@@ -7,16 +7,16 @@ import (
 	"os"
 )
 
-var conf *viper.Viper
+var config *viper.Viper
 
 func init() {
-	conf = NewConfig()
+	config = NewConfig()
 }
 func GetString(key string) string {
-	return conf.GetString(key)
+	return config.GetString(key)
 }
 func GetStringSlice(key string) []string {
-	return conf.GetStringSlice(key)
+	return config.GetStringSlice(key)
 }
 func NewConfig() *viper.Viper {
 	envConf := os.Getenv("APP_CONF")
