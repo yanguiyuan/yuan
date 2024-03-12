@@ -1,6 +1,7 @@
 package excel2tag
 
 import (
+	"fmt"
 	"github.com/xuri/excelize/v2"
 	"github.com/yanguiyuan/yuan/pkg/gen/id"
 	"io"
@@ -31,7 +32,6 @@ type Option interface {
 	apply(worker *Worker)
 }
 type Worker struct {
-	file                    *excelize.File
 	titleRowIndex           int
 	primaryKeyColumn        int
 	primaryKeyCommentColumn int
@@ -41,14 +41,9 @@ type Worker struct {
 	wordTagLink             []WordTagLink
 }
 
-func New(r io.Reader, options ...Option) *Worker {
-	f, err := excelize.OpenReader(r)
-	if err != nil {
-		log.Println(err)
-		return nil
-	}
+func New(options ...Option) *Worker {
+
 	w := &Worker{
-		f,
 		0,
 		1,
 		-1,
@@ -84,12 +79,16 @@ func WithCommentColumnIndex(i int) commentColumnIndexOption {
 func WithPrimaryKeyColumnIndex(i int) primaryKeyColumnIndexOption {
 	return primaryKeyColumnIndexOption{i}
 }
-func (w *Worker) Parse() error {
-
+func (w *Worker) Parse(r io.Reader) error {
+	f, err := excelize.OpenReader(r)
+	if err != nil {
+		log.Println(err)
+		return nil
+	}
 	// 解析标题行
-
-	sheets := w.file.GetSheetList()
-	rows, err := w.file.GetRows(sheets[0])
+	count := 1
+	sheets := f.GetSheetList()
+	rows, err := f.GetRows(sheets[0])
 	if err != nil {
 		return err
 	}
@@ -97,8 +96,12 @@ func (w *Worker) Parse() error {
 	// 构建 TagTypeRecord 切片
 	var tagTypeRecords []TagTypeRecord
 	for col, title := range titles {
-		if title == "" || col == w.primaryKeyColumn || col == w.primaryKeyCommentColumn {
+		if col == w.primaryKeyColumn || col == w.primaryKeyCommentColumn {
 			continue
+		}
+		if title == "" {
+			title = fmt.Sprintf("未知类型%d", count)
+			count++
 		}
 		tagTypeRecords = append(tagTypeRecords, TagTypeRecord{
 			ID:    id.One(),
@@ -192,15 +195,15 @@ func GetTagIndex(records []TagRecord, value string) int {
 	}
 	return -1
 }
-func (w *Worker) GetTagTypeList() []TagTypeRecord {
+func (w *Worker) GetTagTypeSet() []TagTypeRecord {
 	return w.tagTypeRecord
 }
-func (w *Worker) GetTagList() []TagRecord {
+func (w *Worker) GetTagSet() []TagRecord {
 	return w.tagRecord
 }
-func (w *Worker) GetWordList() []WordRecord {
+func (w *Worker) GetWordSet() []WordRecord {
 	return w.wordRecord
 }
-func (w *Worker) GetWordTagLink() []WordTagLink {
+func (w *Worker) GetWordTagSet() []WordTagLink {
 	return w.wordTagLink
 }
