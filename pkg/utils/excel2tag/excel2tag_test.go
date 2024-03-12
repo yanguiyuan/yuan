@@ -14,6 +14,6 @@ func TestExcel2Tag(t *testing.T) {
 	}
 	worker := excel2tag.New(excel2tag.WithCommentColumnIndex(11), excel2tag.WithPrimaryKeyColumnIndex(1))
 	worker.Parse(file)
-	tagTypeSet := worker.GetTagTypeList()
+	tagTypeSet := worker.GetTagTypeSet()
 	fmt.Println(tagTypeSet)
 }
