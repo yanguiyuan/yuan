@@ -16,6 +16,9 @@ func init() {
 	}
 	config = GetConfig(envConf)
 }
+func SetPath(path string) {
+	config.SetConfigFile(path)
+}
 func GetString(key string) string {
 	return config.GetString(key)
 }
