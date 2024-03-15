@@ -121,6 +121,7 @@ func (w *Worker) Parse(r io.Reader) error {
 			}
 			splitWord := strings.Split(cell, "、")
 			for _, word := range splitWord {
+				word = strings.TrimSpace(word)
 				if !slices.ContainsFunc(tagRecords, func(record TagRecord) bool {
 					return word == record.Value
 				}) {
@@ -169,9 +170,11 @@ func (w *Worker) Parse(r io.Reader) error {
 				continue
 			}
 			splitWord := strings.Split(cell, "、")
+			//去除空格
 			wordID := wordRecords[rowIndex-1].ID
 			for _, sw := range splitWord {
-				tagID := tagRecords[GetTagIndex(tagRecords, sw)].ID //fix err
+
+				tagID := tagRecords[GetTagIndex(tagRecords, strings.TrimSpace(sw))].ID //fix err
 				wordTagLinks = append(wordTagLinks, WordTagLink{
 					WordID: wordID,
 					TagID:  tagID,
@@ -212,6 +215,7 @@ func GetTagIndex(records []TagRecord, value string) int {
 	}
 	return -1
 }
+
 func (w *Worker) GetTagTypeSet() []TagTypeRecord {
 	return w.tagTypeRecord
 }
