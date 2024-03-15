@@ -180,10 +180,27 @@ func (w *Worker) Parse(r io.Reader) error {
 
 		}
 	}
-	w.wordRecord = wordRecords
+	filterWords := make([]WordRecord, 0, len(wordRecords))
+	set := make(map[string]struct{}, len(wordRecords))
+	IDSet := make(map[string]struct{}, len(wordRecords))
+	for _, wordRecord := range wordRecords {
+		if _, ok := set[wordRecord.Value]; ok {
+			continue
+		}
+		set[wordRecord.Value] = struct{}{}
+		filterWords = append(filterWords, wordRecord)
+		IDSet[wordRecord.ID] = struct{}{}
+	}
+	filterLinks := make([]WordTagLink, 0, len(wordTagLinks))
+	for _, link := range wordTagLinks {
+		if _, ok := IDSet[link.WordID]; ok {
+			filterLinks = append(filterLinks, link)
+		}
+	}
+	w.wordRecord = filterWords
 	w.tagTypeRecord = tagTypeRecords
 	w.tagRecord = tagRecords
-	w.wordTagLink = wordTagLinks
+	w.wordTagLink = filterLinks
 
 	return nil
 }

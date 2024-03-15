@@ -27,6 +27,13 @@ func New[T comparable]() *Set[T] {
 		data: make(map[T]struct{}),
 	}
 }
+func NewWithSize[T comparable](size int) *Set[T] {
+	return &Set[T]{
+		data: make(map[T]struct{}, size),
+	}
+}
+
+// 添加元素
 func (s *Set[T]) Add(v T) bool {
 	if _, ok := s.data[v]; ok {
 		return false
