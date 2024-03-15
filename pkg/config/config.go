@@ -19,6 +19,12 @@ func init() {
 func GetString(key string) string {
 	return config.GetString(key)
 }
+func GetBool(key string) bool {
+	return config.GetBool(key)
+}
+func GetInt(key string) int {
+	return config.GetInt(key)
+}
 func GetStringSlice(key string) []string {
 	return config.GetStringSlice(key)
 }

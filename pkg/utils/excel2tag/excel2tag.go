@@ -11,20 +11,20 @@ import (
 )
 
 type TagTypeRecord struct {
-	ID    uint64
+	ID    string
 	Value string
 }
 type TagRecord struct {
-	ID     uint64
-	TypeID uint64
+	ID     string
+	TypeID string
 	Value  string
 }
 type WordTagLink struct {
-	WordID uint64
-	TagID  uint64
+	WordID string
+	TagID  string
 }
 type WordRecord struct {
-	ID         uint64
+	ID         string
 	Value      string
 	Paraphrase string
 }
@@ -104,7 +104,7 @@ func (w *Worker) Parse(r io.Reader) error {
 			count++
 		}
 		tagTypeRecords = append(tagTypeRecords, TagTypeRecord{
-			ID:    id.One(),
+			ID:    id.Base62(),
 			Value: title,
 		})
 	}
@@ -132,7 +132,7 @@ func (w *Worker) Parse(r io.Reader) error {
 						tempIndex--
 					}
 					tagRecords = append(tagRecords, TagRecord{
-						ID:     id.One(),
+						ID:     id.Base62(),
 						TypeID: tagTypeRecords[tempIndex].ID,
 						Value:  word,
 					})
@@ -149,7 +149,7 @@ func (w *Worker) Parse(r io.Reader) error {
 			continue // 跳过标题行
 		}
 		wordRecord := WordRecord{
-			ID:    id.One(),
+			ID:    id.Base62(),
 			Value: row[w.primaryKeyColumn],
 		}
 		if len(row) > w.primaryKeyCommentColumn && w.primaryKeyCommentColumn >= 0 {
